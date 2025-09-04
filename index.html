@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Offline Order App</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h2>Danh sách bàn</h2>
+  <div id="table-grid"></div>
+
+  <!-- Overlay món -->
+<div id="overlay" class="overlay-background" style="display:none">
+  <div class="overlay-content">
+    <div id="category-tabs"></div> <!-- Cột trái -->
+
+    <div id="product-area">      <!-- Cột phải -->
+      <button class="close-btn" onclick="closeOverlay()">X</button>
+      <div id="product-grid"></div>
+      <div id="order-list-container">
+        <h3>Order hiện tại</h3>
+        <ul id="order-list" class="scrollable-list"></ul>   
+      </div>
+      <div id="total-price">Tổng: 0 VND</div>
+      <button class="print-btn" onclick="printInvoice(currentTable)">In hóa đơn</button>
+    </div>
+  </div>
+</div>
+
+  <script src="js/products.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/print.js"></script>
+</body>
+</html>

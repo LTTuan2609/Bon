@@ -1,0 +1,236 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 10px;
+}
+
+#table-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.table-btn {
+  padding: 20px;
+  font-size: 18px;
+  border-radius: 8px;
+  background-color: #ffd966;
+  border: none;
+  cursor: pointer;
+}
+
+.table-btn:active {
+  background-color: #ffb74d;
+}
+
+/* Overlay */
+.overlay-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(5px);
+  background-color: rgba(0,0,0,0.2);
+  z-index: 1000;
+}
+
+.overlay-content {
+  position: fixed;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  border-radius: 12px;
+  z-index: 1001;
+  display: flex;          /* dùng flex cho 2 cột */
+  overflow: hidden;       /* ẩn tràn */
+  padding: 0;
+}
+
+/* Cột category */
+#category-tabs {
+  display: flex;
+  flex-direction: column;   /* dọc */
+  width: 50px;             /* cố định cột trái */
+  padding: 10px;
+  gap: 10px;
+  overflow-y: auto;
+  align-items: center;      /* canh giữa các ô */
+  background-color: #f5f5f5;
+  border-right: 1px solid #ccc;
+}
+
+/* Category button */
+#category-tabs button {
+  width: 60px;
+  height: 60px;
+  font-size: 10px;
+  font-weight: bold;
+  border-radius: 12px;
+  border: 1px solid #888;
+  background-color: #eee;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+#category-tabs button.active {
+  background-color: #90caf9;
+  border-color: #42a5f5;
+  transform: scale(1.05);   /* hiệu ứng nổi bật */
+}
+#category-tabs button:hover {
+  background-color: #b3e5fc;
+}
+/* Grid sản phẩm */
+#product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 10px;
+  flex: 1;                  /* chiếm không gian còn lại */
+  overflow-y: auto;
+}
+
+.product-btn {
+  padding: 15px;
+  font-size: 14px;
+  border-radius: 8px;
+  background-color: #90caf9;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  position: relative;
+  min-width: 100px;
+  min-height: 50px;
+  padding: 10px;
+  text-align: center;
+}
+
+.product-btn:active {
+  background-color: #42a5f5;
+}
+
+.product-btn .qty {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: #ff5252;
+  color: #fff;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+/* Cột sản phẩm và order */
+#product-area {
+  flex: 1;                  /* chiếm 3/4 overlay */
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  overflow: hidden;
+}
+.close-btn {
+  float: right;
+  padding: 5px 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#print-btn {
+  margin-top: 10px;
+}
+
+#print-btn, .print-btn {
+  padding: 10px 15px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+}
+
+#print-btn:hover, .print-btn:hover {
+  background-color: #388e3c;
+}
+
+#total-price {
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: bold;
+}
+/* Order list và tổng tiền */
+#order-list-container {
+  margin-top: 10px;
+  max-height: 150px;
+  overflow-y: auto;
+}
+#order-list {
+  overflow-y: auto;       /* scroll dọc */
+  overflow-x: hidden;     /* chặn scroll ngang */
+  touch-action: pan-y;    /* chỉ cho phép pan theo chiều dọc */
+  -webkit-overflow-scrolling: touch; /* smooth scroll iOS */
+}
+
+.scrollable-list {
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 0;
+  background-color: #f9f9f9;
+  list-style: none;
+}
+
+.scrollable-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  border-bottom: 1px solid #eee;
+  position: relative;
+  background-color: #fff;
+  touch-action: pan-y;
+  user-select: none;
+}
+
+.scrollable-list button {
+  margin-left: 5px;
+  padding: 2px 6px;
+  font-size: 12px;
+  border-radius: 4px;
+  background-color: #ff5252;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+.scrollable-list li .delete-btn {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 60px;
+  background-color: #ff5252;
+  color: #fff;
+  border: none;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  transform: translateX(100%);
+  transition: transform 0.2s;
+}
+.scrollable-list button:hover {
+  background-color: #d32f2f;
+}
+.scrollable-list li.swiped .delete-btn {
+  transform: translateX(0);
+}
