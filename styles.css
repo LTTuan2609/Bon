@@ -1,0 +1,352 @@
+:root {
+  --bg: #0b1320;
+  --card: #111827;
+  --muted: #1f2937;
+  --text: #e5e7eb;
+  --accent: #0ea5e9;
+  --good: #16a34a;
+  --bad: #ef4444;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* ===== App Bar ===== */
+.app-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: linear-gradient(90deg, #0ea5e9, #2563eb);
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.app-bar h1 {
+  margin: 0;
+  font-size: 18px;
+}
+
+/* ===== Main Layout ===== */
+main {
+  padding: 12px;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.total-all {
+  margin-left: auto;
+  font-weight: 600;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 12px;
+}
+
+.table-card {
+  position: relative; /* để đặt nút xóa */
+  background: var(--card);
+  border: 1px solid #222;
+  border-radius: 14px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: transform .06s ease;
+}
+
+.table-card:active {
+  transform: scale(0.98);
+}
+.table-card .delete-card {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  background: var(--bad);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2;
+}
+.table-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: var(--muted);
+  display: grid;
+  place-items: center;
+  font-size: 30px;
+}
+
+.table-name {
+  font-weight: 600;
+}
+
+.table-total {
+  font-size: 12px;
+  opacity: .9;
+}
+.table-summary {
+  flex: 0 0 auto;    /* luôn cố định, không dãn */
+  text-align: right;
+  font-size: 16px;
+}
+.table-card.has-items {
+  background: var(--bad); /* đỏ */
+  color: white;
+}
+
+.table-card.no-items {
+  background: var(--good); /* xanh */
+  color: white;
+}
+/* ===== Button ===== */
+button {
+  border: none;
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button.primary {
+  background: var(--accent);
+  color: white;
+}
+
+button.danger {
+  background: var(--bad);
+  color: white;
+}
+
+button.ghost {
+  background: transparent;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, .2);
+}
+
+button:disabled {
+  opacity: .6;
+  pointer-events: none;
+}
+
+/* ===== Modal ===== */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.5);
+  display: grid;
+  place-items: center;
+  padding: 8px;
+  z-index: 1000;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-card {
+  display: flex;
+  flex-direction: column;
+  width: 380px;           /* có thể thay đổi */
+  max-height: 80vh;       /* tối đa chiều cao */
+  background: var(--card);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+  border: 1px solid #222;
+}
+
+.modal-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  background: linear-gradient(90deg, #0ea5e9, #2563eb);
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+  border-bottom: 1px solid #222;
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  overflow: hidden;
+  padding: 12px;
+}
+.modal-footer {
+  flex: 0 0 auto;
+  padding: 12px 16px;
+  border-top: 1px solid #222;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  background: var(--muted);
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+/* ===== List Items ===== */
+.list {
+  flex: 1;          /* chiếm phần còn lại trong modal-body */
+  overflow-y: auto; /* bật cuộn dọc */
+  margin-bottom: 8px;
+}
+
+.item {
+  position: relative;
+  display: flex;
+  align-items: center; /* canh giữa theo chiều dọc */
+  overflow: hidden;
+  border-radius: 12px;
+  border-bottom: 1px solid #333; /* đường gạch tách item */
+  padding: 8px 10px;
+  gap: 8px;
+  height: auto;
+  background: #0f172a;
+}
+.item-content {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr auto auto auto ;
+  align-items: center; /* canh giữa nội dung */
+  gap: 10px;
+  width: 100%;
+  transition: transform 0.3s ease;
+}
+.item.swiped .item-content {
+  transform: translateX(-50px); /* lộ nút del */
+}
+
+.item .name {
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#itemList {
+  flex: 1 1 auto;    /* chiếm hết không gian giữa form và tổng tiền */
+  overflow-y: auto;  /* scroll khi nhiều món */
+  padding: 0;
+}
+#addItemForm {
+  flex: 0 0 auto;    /* luôn cố định, không dãn */
+}
+#addItemForm input {
+  font-size: 16px;  /* iOS Safari không zoom khi focus */
+}
+.price {
+  text-align: left;     /* đơn giá sát trái */
+}
+.qty {
+  text-align: center;   /* số lượng ở giữa */
+  min-width: 40px;      /* đảm bảo cột không quá hẹp */
+}
+
+.sub {
+  text-align: right;    /* thành tiền sát phải */
+  min-width: 60px;
+}
+
+.del {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 50px;
+  background: red;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  pointer-events: none; /* không thể bấm khi ẩn */
+}
+
+.item.swiped .del {
+  transform: translateX(0); /* hiện ra */
+  pointer-events: auto; /* cho phép bấm khi đã swipe */
+}
+/* ===== Add Row ===== */
+.row {
+  display: grid;
+  grid-template-columns: 1.2fr .9fr .6fr auto;
+  gap: 8px;
+}
+
+.row input {
+  border-radius: 10px;
+  border: 1px solid #333;
+  background: #0f172a;
+  color: #fff;
+  padding: 10px;
+}
+
+.table-summary {
+  text-align: right;
+  font-size: 16px;
+}
+
+/* ===== Mobile Fix ===== */
+@media (max-width: 420px) {
+  /* List item hiển thị dọc hơn */
+  .item {
+    grid-template-columns: 1fr auto auto; /* bỏ bớt 1 cột cho gọn */
+    flex-wrap: wrap;
+  }
+
+  .item .name {
+    grid-column: 1 / -1; /* tên chiếm cả dòng trên */
+    margin-bottom: 4px;
+  }
+
+  /* Form thêm món */
+  .row {
+    grid-template-columns: 1fr; /* đổi thành 1 cột */
+  }
+
+  .row input {
+    width: 100%; /* input full chiều ngang */
+  }
+
+  /* Nút trong modal footer cũng stack dọc */
+  .modal-footer {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
