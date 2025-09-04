@@ -1,75 +1,35 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=0">
-<link rel="manifest" href="manifest.webmanifest">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<link rel="apple-touch-icon" href="icon.png">
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Quản lý bàn</title>
-<meta name="theme-color" content="#0ea5e9" />
-<link rel="manifest" href="./manifest.webmanifest" />
-<!-- iOS: icon khi Add to Home Screen (tùy chọn, có thể thêm sau) -->
-<link rel="apple-touch-icon" href="./icons/icon-192.png" />
-<link rel="stylesheet" href="./styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Offline Order App</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header class="app-bar">
-<h1>Quản lý bàn</h1>
-<button id="resetAll" class="ghost">Xóa dữ liệu</button>
-</header>
+  <h2>Danh sách bàn</h2>
+  <div id="table-grid"></div>
 
+  <!-- Overlay món -->
+<div id="overlay" class="overlay-background" style="display:none">
+  <div class="overlay-content">
+    <div id="category-tabs"></div> <!-- Cột trái -->
 
-<main>
-<section class="toolbar">
-<button id="addTable" class="primary">+ Thêm bàn</button>
-<div class="total-all">Tổng tất cả: <strong id="grandTotal">0₫</strong></div>
-</section>
-
-
-<section id="grid" class="grid"></section>
-</main>
-
-
-<!-- Modal chi tiết bàn -->
-<div id="modal" class="modal hidden" aria-hidden="true" role="dialog" aria-modal="true">
-<div class="modal-card">
-	<header class="modal-bar">
-		<h2 id="modalTitle">Bàn</h2>
-		<button id="closeModal" class="ghost">Đóng</button>
-	</header>
-
-
-	<div class="modal-body">
-		<form id="addItemForm" class="row">
-			<input id="itemName" type="text" placeholder="Tên SP" required />
-			<input id="itemPrice" type="number" inputmode="decimal" placeholder="Giá (VND)" required />
-			<input id="itemQty" type="number" inputmode="numeric" min="1" value="1" />
-			<button class="primary" type="submit">Thêm</button>
-			<button class="del" aria-label="Xóa">🗑️</button>
-		</form>
-		<ul id="itemList" class="list"></ul>
-
-		<div class="table-summary">
-			Tổng bàn: <strong id="tableTotal">0₫</strong>
-		</div>
-	</div>
-	<footer class="modal-footer">
-		<button id="clearTable" class="danger">Thanh toán (Xóa món)</button>
-	</footer>
-</div>
+    <div id="product-area">      <!-- Cột phải -->
+      <button class="close-btn" onclick="closeOverlay()">X</button>
+      <div id="product-grid"></div>
+      <div id="order-list-container">
+        <h3>Order hiện tại</h3>
+        <ul id="order-list" class="scrollable-list"></ul>   
+      </div>
+      <div id="total-price">Tổng: 0 VND</div>
+      <button class="print-btn" onclick="printInvoice(currentTable)">In hóa đơn</button>
+    </div>
+  </div>
 </div>
 
-
-<script src="./app.js"></script>
-<script>
-if ("serviceWorker" in navigator) {
-window.addEventListener("load", () => {
-navigator.serviceWorker.register("./sw.js").catch(console.error);
-});
-}
-</script>
+  <script src="js/products.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/print.js"></script>
 </body>
 </html>
