@@ -1,17 +1,4 @@
-let currentCategory = null;
-
-// Giả sử categories và products đã có dữ liệu
-// VD:
-const categories = [
-  { id: 1, name: "Đồ uống" },
-  { id: 2, name: "Món ăn" }
-];
-const products = [
-  { id: 1, name: "Cà phê", price: 20000, category: 1 },
-  { id: 2, name: "Trà sữa", price: 25000, category: 1 },
-  { id: 3, name: "Phở", price: 50000, category: 2 }
-];
-
+// categories.js
 function renderCategories() {
   const container = document.getElementById("category-tabs");
   container.innerHTML = "";
@@ -24,5 +11,22 @@ function renderCategories() {
     };
     if (c.id === currentCategory) btn.classList.add("active");
     container.appendChild(btn);
+  });
+}
+
+function renderProducts(categoryId) {
+  const grid = document.getElementById("product-grid");
+  grid.innerHTML = "";
+  const gridQty = ordersGrid[currentTable] || {};
+
+  products.filter(p => p.category === categoryId).forEach(p => {
+    const qty = gridQty[p.id] || 0;
+    const btn = document.createElement("button");
+    btn.className = "product-btn";
+    btn.innerHTML =
+      `${p.name}<br>${p.price.toLocaleString()} VND` +
+      (qty > 0 ? `<span class="qty">${qty}</span>` : "");
+    btn.onclick = () => addToOrder(p.id);
+    grid.appendChild(btn);
   });
 }
